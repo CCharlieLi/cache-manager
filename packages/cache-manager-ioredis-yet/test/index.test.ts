@@ -43,7 +43,7 @@ beforeEach(async () => {
 describe('instance', () => {
   it('should be constructed', async () => {
     const instance = new Redis(config || {});
-    const cache = await caching((c) => redisInsStore(instance, c), config);
+    const cache = await caching(redisStore({ redisInstance: instance }), config);
     await cache.set('fooll', 'bar');
     await expect(cache.get('fooll')).resolves.toEqual('bar');
   });
